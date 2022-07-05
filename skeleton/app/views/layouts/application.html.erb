@@ -8,6 +8,21 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
+  <%if logged_in?%>
+    <h2><%="Currently logged in as: #{current_user.user_name}"%></h2>
+    <form action="<%=session_url%>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Logout">
+    </form>
+  <%else%>
+    <form action="<%= new_session_url %>" action="post">
+      <input type="submit" value="Log in">
+    </form>
+    <form action="<%= new_user_url %>" action="post">
+      <input type="submit" value="Sign up">
+    </form>
+  <%end%>
+
   <body>
     <%= yield %>
   </body>

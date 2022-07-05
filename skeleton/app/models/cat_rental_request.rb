@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: cat_rental_requests
+#
+#  id         :bigint           not null, primary key
+#  cat_id     :integer          not null
+#  end_date   :date             not null
+#  start_date :date             not null
+#  status     :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer          not null
+#
 class CatRentalRequest < ApplicationRecord
   # .freeze renders constants immutable
   STATUS_STATES = %w(APPROVED DENIED PENDING).freeze
@@ -6,8 +19,14 @@ class CatRentalRequest < ApplicationRecord
   validates :status, inclusion: STATUS_STATES
   validate :start_must_come_before_end
   validate :does_not_overlap_approved_request
+  validates :requester, presence: true
 
   belongs_to :cat
+
+  belongs_to :requester,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :User
 
   after_initialize :assign_pending_status
 

@@ -1,0 +1,15 @@
+
+<h2>Enter your credentials:</h2>
+
+
+<form action="<%=session_url%>" method="post">
+    <label>Username:
+        <input type="text" value="<%=@user.user_name%>" name="user[user_name]">
+    </label>
+
+    <label>Password:
+        <input type="password" value="<%=@user.password%>" name="user[password]">
+    </label>
+
+    <input type="submit" value="Log in">
+</form>

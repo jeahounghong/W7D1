@@ -1,8 +1,9 @@
 <tr>
   <td><%= req.start_date %></td>
   <td><%= req.end_date %></td>
+  <td><%= User.find_by(id: req.user_id).user_name %>
   <td>
-    <% if req.pending? %>
+    <% if req.pending? && Cat.find(req.cat_id).owner == current_user %>
         <form action="<%= approve_cat_rental_request_url(req) %>" method="post">
           <input
             type="hidden"
